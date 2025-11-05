@@ -4,7 +4,14 @@
     "href": "observability/index.html",
     "title": "Observability",
     "section": "",
-    "text": "Welcome — this section contains monitoring dashboards and observability docs.\n\n\n\nDashboard 1"
+    "text": "Welcome — this section contains monitoring dashboards and observability docs.\n\n\n\nLog Clustering\n\n\n\n\n\nDashboard 1"
+  },
+  {
+    "objectID": "observability/index.html#tecchniques",
+    "href": "observability/index.html#tecchniques",
+    "title": "Observability",
+    "section": "",
+    "text": "Log Clustering"
   },
   {
     "objectID": "observability/index.html#dashboards",
@@ -19,6 +26,41 @@
     "title": "DataGan",
     "section": "",
     "text": "All things Data!"
+  },
+  {
+    "objectID": "observability/netflix_cluster_logs.html",
+    "href": "observability/netflix_cluster_logs.html",
+    "title": "Netflix Games: Detecting Broken Gameplay Using Log Clustering",
+    "section": "",
+    "text": "At Netflix, the SRE team for Netflix Games focuses on monitoring key network performance metrics such as latency bitrate and packet loss\nHowever, these metrics alone don’t always reveal when a game is actually broken from the player’s perspective.\n\n\n\nIn some countries, popular Netflix games remained broken for up to three weeks — clearly unacceptable for player experience.\nTraditional indicators, such as:\n\nGameplay duration\nUser feedback forms\n\nwere too weak to reliably detect broken games.\nTo address this, the team decided to focus deeply on one strong signal:\n\nGameplay time &lt; 120 seconds\n\nThis metric served as a practical proxy for identifying failed or frustrating game sessions.\n\n\n\n\nTo understand the root causes behind short gameplay sessions, the team developed a log clustering pipeline\nThe process includes the following stages:\n\n\n\nSelect logs containing relevant keywords such as exception, error, and warning.\n\n\n\n\n\nMask PII (Personally Identifiable Information) to ensure privacy.\n\nKeep only the first line of multi-line logs for consistency.\n\nNormalize dynamic content (e.g., timestamps, IDs) to reduce noise and minimize the number of distinct log entries.\n\n\n\n\n\nConvert log text into numerical vectors using the Sentence Transformer package.\n\n\n\n\n\nApply DBSCAN (Density-Based Spatial Clustering of Applications with Noise) to group similar log messages.\n\n\n\n\n\n\n\nFrom over 20 million lines of logs**, the process produced approximately 130 meaningful clusters, each pointing to a distinct problem area.\n\nThe results were evaluated using a confusion matrix, measuring:\n\nPrecision\nRecall\nF1 Score\n\n\n\n\n\n\n\nThe system currently runs hourly, providing near-real-time insights into potential issues.\n\nThe next step for the team is to reduce alerting latency to improve detection and response speed even further.\n\n\nSource: Netflix Games Talk — SREcon25 Americas"
+  },
+  {
+    "objectID": "observability/netflix_cluster_logs.html#the-challenge",
+    "href": "observability/netflix_cluster_logs.html#the-challenge",
+    "title": "Netflix Games: Detecting Broken Gameplay Using Log Clustering",
+    "section": "",
+    "text": "In some countries, popular Netflix games remained broken for up to three weeks — clearly unacceptable for player experience.\nTraditional indicators, such as:\n\nGameplay duration\nUser feedback forms\n\nwere too weak to reliably detect broken games.\nTo address this, the team decided to focus deeply on one strong signal:\n\nGameplay time &lt; 120 seconds\n\nThis metric served as a practical proxy for identifying failed or frustrating game sessions."
+  },
+  {
+    "objectID": "observability/netflix_cluster_logs.html#the-approach-log-clustering-pipeline",
+    "href": "observability/netflix_cluster_logs.html#the-approach-log-clustering-pipeline",
+    "title": "Netflix Games: Detecting Broken Gameplay Using Log Clustering",
+    "section": "",
+    "text": "To understand the root causes behind short gameplay sessions, the team developed a log clustering pipeline\nThe process includes the following stages:\n\n\n\nSelect logs containing relevant keywords such as exception, error, and warning.\n\n\n\n\n\nMask PII (Personally Identifiable Information) to ensure privacy.\n\nKeep only the first line of multi-line logs for consistency.\n\nNormalize dynamic content (e.g., timestamps, IDs) to reduce noise and minimize the number of distinct log entries.\n\n\n\n\n\nConvert log text into numerical vectors using the Sentence Transformer package.\n\n\n\n\n\nApply DBSCAN (Density-Based Spatial Clustering of Applications with Noise) to group similar log messages."
+  },
+  {
+    "objectID": "observability/netflix_cluster_logs.html#results",
+    "href": "observability/netflix_cluster_logs.html#results",
+    "title": "Netflix Games: Detecting Broken Gameplay Using Log Clustering",
+    "section": "",
+    "text": "From over 20 million lines of logs**, the process produced approximately 130 meaningful clusters, each pointing to a distinct problem area.\n\nThe results were evaluated using a confusion matrix, measuring:\n\nPrecision\nRecall\nF1 Score"
+  },
+  {
+    "objectID": "observability/netflix_cluster_logs.html#current-status-future-work",
+    "href": "observability/netflix_cluster_logs.html#current-status-future-work",
+    "title": "Netflix Games: Detecting Broken Gameplay Using Log Clustering",
+    "section": "",
+    "text": "The system currently runs hourly, providing near-real-time insights into potential issues.\n\nThe next step for the team is to reduce alerting latency to improve detection and response speed even further.\n\n\nSource: Netflix Games Talk — SREcon25 Americas"
   },
   {
     "objectID": "about.html",

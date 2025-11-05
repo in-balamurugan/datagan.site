@@ -7,6 +7,11 @@ description: "Observability dashboards and docs"
 
 Welcome — this section contains monitoring dashboards and observability docs.
 
+## Tecchniques
+
+- [Log Clustering](netflix_cluster_logs.qmd)
+
+
 ## Dashboards
 
 - [Dashboard 1](dashboard.qmd)

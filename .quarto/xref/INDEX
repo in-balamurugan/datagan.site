@@ -10,5 +10,8 @@
   },
   "missing_data/missing_data.qmd": {
     "missing_data.html": "0bd6661c"
+  },
+  "observability/netflix_cluster_logs.qmd": {
+    "netflix_cluster_logs.html": "8f6e784e"
   }
 }

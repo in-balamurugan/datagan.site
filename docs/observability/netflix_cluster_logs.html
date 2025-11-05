@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Observability dashboards and docs">
 
-<title>Observability</title>
+<title>netflix_cluster_logs</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -94,7 +93,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../observability/index.html" aria-current="page"> 
+    <a class="nav-link" href="../observability/index.html"> 
 <span class="menu-text">Observability</span></a>
   </li>  
 </ul>
@@ -113,55 +112,106 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#observability" id="toc-observability" class="nav-link active" data-scroll-target="#observability">Observability</a>
+  <li><a href="#netflix-games-detecting-broken-gameplay-using-log-clustering" id="toc-netflix-games-detecting-broken-gameplay-using-log-clustering" class="nav-link active" data-scroll-target="#netflix-games-detecting-broken-gameplay-using-log-clustering">Netflix Games: Detecting Broken Gameplay Using Log Clustering</a>
   <ul class="collapse">
-  <li><a href="#tecchniques" id="toc-tecchniques" class="nav-link" data-scroll-target="#tecchniques">Tecchniques</a></li>
-  <li><a href="#dashboards" id="toc-dashboards" class="nav-link" data-scroll-target="#dashboards">Dashboards</a></li>
+  <li><a href="#the-challenge" id="toc-the-challenge" class="nav-link" data-scroll-target="#the-challenge">The Challenge</a></li>
+  <li><a href="#the-approach-log-clustering-pipeline" id="toc-the-approach-log-clustering-pipeline" class="nav-link" data-scroll-target="#the-approach-log-clustering-pipeline">The Approach: Log Clustering Pipeline</a>
+  <ul class="collapse">
+  <li><a href="#selection-filtering" id="toc-selection-filtering" class="nav-link" data-scroll-target="#selection-filtering">1. Selection &amp; Filtering</a></li>
+  <li><a href="#preprocessing" id="toc-preprocessing" class="nav-link" data-scroll-target="#preprocessing">2. Preprocessing</a></li>
+  <li><a href="#vectorization" id="toc-vectorization" class="nav-link" data-scroll-target="#vectorization">3. Vectorization</a></li>
+  <li><a href="#clustering" id="toc-clustering" class="nav-link" data-scroll-target="#clustering">4. Clustering</a></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a></li>
+  <li><a href="#current-status-future-work" id="toc-current-status-future-work" class="nav-link" data-scroll-target="#current-status-future-work">Current Status &amp; Future Work</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Observability</h1>
-</div>
-
-<div>
-  <div class="description">
-    Observability dashboards and docs
-  </div>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
-<div class="quarto-title-meta">
-
-    
-  
-    
-  </div>
-  
 
 
-</header>
-
-
-<section id="observability" class="level1">
-<h1>Observability</h1>
-<p>Welcome — this section contains monitoring dashboards and observability docs.</p>
-<section id="tecchniques" class="level2">
-<h2 class="anchored" data-anchor-id="tecchniques">Tecchniques</h2>
+<section id="netflix-games-detecting-broken-gameplay-using-log-clustering" class="level1">
+<h1>Netflix Games: Detecting Broken Gameplay Using Log Clustering</h1>
+<p>At Netflix, the SRE team for Netflix Games focuses on monitoring key network performance metrics such as latency bitrate and packet loss<br>
+However, these metrics alone don’t always reveal when a game is actually <em>broken</em> from the player’s perspective.</p>
+<hr>
+<section id="the-challenge" class="level2">
+<h2 class="anchored" data-anchor-id="the-challenge">The Challenge</h2>
+<p>In some countries, popular Netflix games remained broken for up to three weeks — clearly unacceptable for player experience.<br>
+Traditional indicators, such as:</p>
 <ul>
-<li><a href="../observability/netflix_cluster_logs.html">Log Clustering</a></li>
+<li>Gameplay duration</li>
+<li>User feedback forms</li>
+</ul>
+<p>were too weak to reliably detect broken games.</p>
+<p>To address this, the team decided to focus deeply on one strong signal:</p>
+<blockquote class="blockquote">
+<p><strong>Gameplay time &lt; 120 seconds</strong></p>
+</blockquote>
+<p>This metric served as a practical proxy for identifying failed or frustrating game sessions.</p>
+<hr>
+</section>
+<section id="the-approach-log-clustering-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="the-approach-log-clustering-pipeline">The Approach: Log Clustering Pipeline</h2>
+<p>To understand the root causes behind short gameplay sessions, the team developed a log clustering pipeline<br>
+The process includes the following stages:</p>
+<section id="selection-filtering" class="level3">
+<h3 class="anchored" data-anchor-id="selection-filtering">1. Selection &amp; Filtering</h3>
+<ul>
+<li>Select logs containing relevant keywords such as <code>exception</code>, <code>error</code>, and <code>warning</code>.</li>
 </ul>
 </section>
-<section id="dashboards" class="level2">
-<h2 class="anchored" data-anchor-id="dashboards">Dashboards</h2>
+<section id="preprocessing" class="level3">
+<h3 class="anchored" data-anchor-id="preprocessing">2. Preprocessing</h3>
 <ul>
-<li><a href="dashboard.qmd">Dashboard 1</a></li>
+<li>Mask PII (Personally Identifiable Information) to ensure privacy.<br>
+</li>
+<li>Keep only the first line of multi-line logs for consistency.<br>
+</li>
+<li>Normalize dynamic content (e.g., timestamps, IDs) to reduce noise and minimize the number of distinct log entries.</li>
 </ul>
+</section>
+<section id="vectorization" class="level3">
+<h3 class="anchored" data-anchor-id="vectorization">3. Vectorization</h3>
+<ul>
+<li>Convert log text into numerical vectors using the Sentence Transformer package.</li>
+</ul>
+</section>
+<section id="clustering" class="level3">
+<h3 class="anchored" data-anchor-id="clustering">4. Clustering</h3>
+<ul>
+<li>Apply DBSCAN (Density-Based Spatial Clustering of Applications with Noise) to group similar log messages.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<ul>
+<li>From over 20 million lines of logs**, the process produced approximately 130 meaningful clusters, each pointing to a distinct problem area.<br>
+</li>
+<li>The results were evaluated using a confusion matrix, measuring:
+<ul>
+<li><strong>Precision</strong></li>
+<li><strong>Recall</strong></li>
+<li><strong>F1 Score</strong></li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="current-status-future-work" class="level2">
+<h2 class="anchored" data-anchor-id="current-status-future-work">Current Status &amp; Future Work</h2>
+<ul>
+<li>The system currently runs hourly, providing near-real-time insights into potential issues.<br>
+</li>
+<li>The next step for the team is to reduce alerting latency to improve detection and response speed even further.</li>
+</ul>
+<hr>
+<p><em>Source: <a href="https://www.usenix.org/conference/srecon25americas/presentation/neidel">Netflix Games Talk — SREcon25 Americas</a></em></p>
 
 
 </section>
