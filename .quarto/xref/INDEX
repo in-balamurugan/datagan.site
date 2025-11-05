@@ -4,5 +4,11 @@
   },
   "about.qmd": {
     "about.html": "1dfcb285"
+  },
+  "observability/index.qmd": {
+    "index.html": "ffac18ce"
+  },
+  "missing_data/missing_data.qmd": {
+    "missing_data.html": "0bd6661c"
   }
 }

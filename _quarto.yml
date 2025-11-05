@@ -19,4 +19,15 @@ format:
     toc: true
 
 
+site:
+  navbar:
+    left:
+      - text: Home
+        href: index.qmd
+      - text: About
+        href: about.qmd
+      - text: Observability
+        href: observability/index.qmd
+
+
 

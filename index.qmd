@@ -1,7 +1,5 @@
 ---
-title: "datagan.site"
+title: "DataGan"
 ---
 
-This is a Quarto website.
-
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+All things Data!

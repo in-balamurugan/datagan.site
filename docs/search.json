@@ -1,16 +1,30 @@
 [
   {
+    "objectID": "observability/index.html",
+    "href": "observability/index.html",
+    "title": "Observability",
+    "section": "",
+    "text": "Welcome — this section contains monitoring dashboards and observability docs.\n\n\n\nDashboard 1"
+  },
+  {
+    "objectID": "observability/index.html#dashboards",
+    "href": "observability/index.html#dashboards",
+    "title": "Observability",
+    "section": "",
+    "text": "Dashboard 1"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "DataGan",
+    "section": "",
+    "text": "All things Data!"
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
     "section": "",
     "text": "About this site"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "datagan.site",
-    "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
   }
 ]

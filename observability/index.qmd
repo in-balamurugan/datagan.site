@@ -1,0 +1,12 @@
+---
+title: "Observability"
+description: "Observability dashboards and docs"
+---
+
+# Observability
+
+Welcome — this section contains monitoring dashboards and observability docs.
+
+## Dashboards
+
+- [Dashboard 1](dashboard.qmd)
