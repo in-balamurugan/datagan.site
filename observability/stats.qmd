@@ -1,0 +1,68 @@
+# Netflix Games: Detecting Broken Gameplay Using Log Clustering
+
+At Netflix, the SRE team for Netflix Games focuses on monitoring key network performance metrics such as latency bitrate and packet loss\
+However, these metrics alone don’t always reveal when a game is actually *broken* from the player’s perspective.
+
+------------------------------------------------------------------------
+
+## The Challenge
+
+In some countries, popular Netflix games remained broken for up to three weeks — clearly unacceptable for player experience.\
+Traditional indicators, such as:
+
+-   Gameplay duration
+-   User feedback forms
+
+were too weak to reliably detect broken games.
+
+To address this, the team decided to focus deeply on one strong signal:
+
+> **Gameplay time \< 120 seconds**
+
+This metric served as a practical proxy for identifying failed or frustrating game sessions.
+
+------------------------------------------------------------------------
+
+## The Approach: Log Clustering Pipeline
+
+To understand the root causes behind short gameplay sessions, the team developed a log clustering pipeline\
+The process includes the following stages:
+
+### 1. Selection & Filtering
+
+-   Select logs containing relevant keywords such as `exception`, `error`, and `warning`.
+
+### 2. Preprocessing
+
+-   Mask PII (Personally Identifiable Information) to ensure privacy.\
+-   Keep only the first line of multi-line logs for consistency.\
+-   Normalize dynamic content (e.g., timestamps, IDs) to reduce noise and minimize the number of distinct log entries.
+
+### 3. Vectorization
+
+-   Convert log text into numerical vectors using the Sentence Transformer package.
+
+### 4. Clustering
+
+-   Apply DBSCAN (Density-Based Spatial Clustering of Applications with Noise) to group similar log messages.
+
+------------------------------------------------------------------------
+
+## Results
+
+-   From over 20 million lines of logs\*\*, the process produced approximately 130 meaningful clusters, each pointing to a distinct problem area.\
+-   The results were evaluated using a confusion matrix, measuring:
+    -   **Precision**
+    -   **Recall**
+    -   **F1 Score**
+
+------------------------------------------------------------------------
+
+## Current Status & Future Work
+
+-   The system currently runs hourly, providing near-real-time insights into potential issues.\
+-   The next step for the team is to reduce alerting latency to improve detection and response speed even further.
+
+------------------------------------------------------------------------
+
+*Source: [Netflix Games Talk — SREcon25 Americas](https://www.usenix.org/conference/srecon25americas/presentation/neidel)*
