@@ -1,31 +1,129 @@
 [
   {
-    "objectID": "observability/index.html",
-    "href": "observability/index.html",
-    "title": "Observability",
+    "objectID": "data/pyspark.html",
+    "href": "data/pyspark.html",
+    "title": "Databricks - PySpark: A Definitive Guide",
     "section": "",
-    "text": "Welcome — this section contains monitoring dashboards and observability docs.\n\n\n\nLog Clustering\n\n\n\n\n\nDashboard 1"
+    "text": "Databricks offers a unified platform combining data lakes (flexible, cheap) and data warehouses (structured, governed, quality) known as a data lakehouse.\n\n\n\n\nDB uses one of the cloud providers as underlying infrastructure\nDatabricks Runtime - Preconfigured VM for cluster use\nUnity Catalog - Provides unified view and permissions\nDB Workspace - Any language accessing Databricks\n\n\n\n\nArchitecture Diagram. Credit: Oreilly\n\n\n\n\n\nControl Plane: Web UI, Cluster Management, Workflows, Notebooks\nData Plane: Storage and Compute/VMs\n\n\n\n\n\n\nDistributed data processing\nIn-memory processing\nMulti-language support\nBatch and stream processing\nFlexible data handling\n\n\n\n\nDelta Lake is an open-source transactional storage layer on top of cloud storage. It is a framework, not a medium or format like Parquet. It supports ACID guarantees.\n\n\n\n\nUSING DELTA\nDESCRIBE\nOPTIMIZE - Compacts small files into larger ones\nOPTIMIZE &lt;table_name&gt; ZORDER BY &lt;column_names&gt; - Creates an index for the column, enabling skip scanning to directly reach relevant chunks\nDROP\n\n\n\n\nStorage --&gt; Schema --&gt; Table1, Table2\nNote: Databricks uses Hive’s metastore format and SQL compatibility, but replaces Hive’s compute engine with Spark and Delta Lake.\n\n\n\n\nINTERSECT\nMINUS\nPIVOT\nFILTER\nTRANSFORM\n\n\n\n\nUser-Defined Functions (UDFs) are custom functions that: - Accept parameters - Can be used as part of SQL queries - Can be described using the DESCRIBE command\n\n\n\n\nBig Prerequisite: Data must be append-only (data can only be added to the source; existing data cannot be modified)\nCan integrate with various readers like files, queues, and Delta Lake tables\nRead and Write:\n\nstreamDF = spark.readStream.table(\"source_table\")\nstreamDF.writeStream.table(\"target_table\")\n\nModes: Continuous Mode and Triggered Mode\nCheckpointing at regular intervals\nStreaming guarantees: Fault recovery and exactly-once semantics\n\n\n\n\n\nCOPY INTO - Each execution only processes new files from the source location; previously ingested files are ignored\nAuto Loader - Employs checkpointing, stores metadata information, efficient at scale, can handle millions of files\n\n\n\n\nAs in medals, it has three levels: - Bronze - Silver - Gold\n\n\n\n\nDelta Live Tables (DLT) is a declarative ETL framework powered by Apache Spark for building reliable and maintainable data pipelines\nRunning DLT Pipelines: Production and Development mode\nChange Data Capture (CDC)\n\n\n\n\n\nData Cataloging\nData Security\nMonitoring and Auditing\nData Lineage\nData Discovery\n\n\n\n\nTraditional namespace: schema.table Unity Catalog namespace: catalog.schema.table\n\nPyspark\nWhat are two main structures for storing data when performing manipulations? Resilient Distributed Data - RDD - Each record as independend object/row Dataframe - Records in columns\nWhat are the various functions? from pyspark.sql.functions import split\nwrite a simple pyspark snippet for word count “““import pyspark.sql.functions as F\nresults = ( spark.read.text(“./data/gutenberg_books/1342-0.txt”) .select(F.split(F.col(“value”), ” “).alias(”line”)) .select(F.explode(F.col(“line”)).alias(“word”)) .select(F.lower(F.col(“word”)).alias(“word”)) .select(F.regexp_extract(F.col(“word”), “[a-z’]*“, 0).alias(”word”)) .where(F.col(“word”) != ““) .groupby(”word”) .count() )”\nWhat are the rules for succsessful join?\nwhen to decide what type of UDF to use? \n\n\n\n\nBuild a Medallion Architecture\nReference: Comparison of Ingestion Mechanisms\nImplement DLT Pipeline"
   },
   {
-    "objectID": "observability/index.html#techniques",
-    "href": "observability/index.html#techniques",
-    "title": "Observability",
+    "objectID": "data/pyspark.html#what-problem-does-databricks-solve",
+    "href": "data/pyspark.html#what-problem-does-databricks-solve",
+    "title": "Databricks - PySpark: A Definitive Guide",
     "section": "",
-    "text": "Log Clustering"
+    "text": "Databricks offers a unified platform combining data lakes (flexible, cheap) and data warehouses (structured, governed, quality) known as a data lakehouse."
   },
   {
-    "objectID": "observability/index.html#dashboards",
-    "href": "observability/index.html#dashboards",
-    "title": "Observability",
+    "objectID": "data/pyspark.html#what-is-the-high-level-architecture",
+    "href": "data/pyspark.html#what-is-the-high-level-architecture",
+    "title": "Databricks - PySpark: A Definitive Guide",
     "section": "",
-    "text": "Dashboard 1"
+    "text": "DB uses one of the cloud providers as underlying infrastructure\nDatabricks Runtime - Preconfigured VM for cluster use\nUnity Catalog - Provides unified view and permissions\nDB Workspace - Any language accessing Databricks\n\n\n\n\nArchitecture Diagram. Credit: Oreilly\n\n\n\n\n\nControl Plane: Web UI, Cluster Management, Workflows, Notebooks\nData Plane: Storage and Compute/VMs"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "DataGan",
+    "objectID": "data/pyspark.html#why-is-apache-spark-so-popular",
+    "href": "data/pyspark.html#why-is-apache-spark-so-popular",
+    "title": "Databricks - PySpark: A Definitive Guide",
     "section": "",
-    "text": "All things Data!"
+    "text": "Distributed data processing\nIn-memory processing\nMulti-language support\nBatch and stream processing\nFlexible data handling"
+  },
+  {
+    "objectID": "data/pyspark.html#what-is-delta-lake",
+    "href": "data/pyspark.html#what-is-delta-lake",
+    "title": "Databricks - PySpark: A Definitive Guide",
+    "section": "",
+    "text": "Delta Lake is an open-source transactional storage layer on top of cloud storage. It is a framework, not a medium or format like Parquet. It supports ACID guarantees."
+  },
+  {
+    "objectID": "data/pyspark.html#what-are-the-key-commands-used-with-delta-lake",
+    "href": "data/pyspark.html#what-are-the-key-commands-used-with-delta-lake",
+    "title": "Databricks - PySpark: A Definitive Guide",
+    "section": "",
+    "text": "USING DELTA\nDESCRIBE\nOPTIMIZE - Compacts small files into larger ones\nOPTIMIZE &lt;table_name&gt; ZORDER BY &lt;column_names&gt; - Creates an index for the column, enabling skip scanning to directly reach relevant chunks\nDROP"
+  },
+  {
+    "objectID": "data/pyspark.html#what-is-the-relational-structure",
+    "href": "data/pyspark.html#what-is-the-relational-structure",
+    "title": "Databricks - PySpark: A Definitive Guide",
+    "section": "",
+    "text": "Storage --&gt; Schema --&gt; Table1, Table2\nNote: Databricks uses Hive’s metastore format and SQL compatibility, but replaces Hive’s compute engine with Spark and Delta Lake."
+  },
+  {
+    "objectID": "data/pyspark.html#what-are-different-sql-functions-available",
+    "href": "data/pyspark.html#what-are-different-sql-functions-available",
+    "title": "Databricks - PySpark: A Definitive Guide",
+    "section": "",
+    "text": "INTERSECT\nMINUS\nPIVOT\nFILTER\nTRANSFORM"
+  },
+  {
+    "objectID": "data/pyspark.html#what-are-udfs",
+    "href": "data/pyspark.html#what-are-udfs",
+    "title": "Databricks - PySpark: A Definitive Guide",
+    "section": "",
+    "text": "User-Defined Functions (UDFs) are custom functions that: - Accept parameters - Can be used as part of SQL queries - Can be described using the DESCRIBE command"
+  },
+  {
+    "objectID": "data/pyspark.html#how-does-spark-handle-data-streaming",
+    "href": "data/pyspark.html#how-does-spark-handle-data-streaming",
+    "title": "Databricks - PySpark: A Definitive Guide",
+    "section": "",
+    "text": "Big Prerequisite: Data must be append-only (data can only be added to the source; existing data cannot be modified)\nCan integrate with various readers like files, queues, and Delta Lake tables\nRead and Write:\n\nstreamDF = spark.readStream.table(\"source_table\")\nstreamDF.writeStream.table(\"target_table\")\n\nModes: Continuous Mode and Triggered Mode\nCheckpointing at regular intervals\nStreaming guarantees: Fault recovery and exactly-once semantics"
+  },
+  {
+    "objectID": "data/pyspark.html#how-can-we-handle-incremental-data-ingestion",
+    "href": "data/pyspark.html#how-can-we-handle-incremental-data-ingestion",
+    "title": "Databricks - PySpark: A Definitive Guide",
+    "section": "",
+    "text": "COPY INTO - Each execution only processes new files from the source location; previously ingested files are ignored\nAuto Loader - Employs checkpointing, stores metadata information, efficient at scale, can handle millions of files"
+  },
+  {
+    "objectID": "data/pyspark.html#what-is-medallion-architecture",
+    "href": "data/pyspark.html#what-is-medallion-architecture",
+    "title": "Databricks - PySpark: A Definitive Guide",
+    "section": "",
+    "text": "As in medals, it has three levels: - Bronze - Silver - Gold"
+  },
+  {
+    "objectID": "data/pyspark.html#how-to-build-production-pipelines",
+    "href": "data/pyspark.html#how-to-build-production-pipelines",
+    "title": "Databricks - PySpark: A Definitive Guide",
+    "section": "",
+    "text": "Delta Live Tables (DLT) is a declarative ETL framework powered by Apache Spark for building reliable and maintainable data pipelines\nRunning DLT Pipelines: Production and Development mode\nChange Data Capture (CDC)"
+  },
+  {
+    "objectID": "data/pyspark.html#what-is-data-governance",
+    "href": "data/pyspark.html#what-is-data-governance",
+    "title": "Databricks - PySpark: A Definitive Guide",
+    "section": "",
+    "text": "Data Cataloging\nData Security\nMonitoring and Auditing\nData Lineage\nData Discovery"
+  },
+  {
+    "objectID": "data/pyspark.html#what-is-unity-catalog",
+    "href": "data/pyspark.html#what-is-unity-catalog",
+    "title": "Databricks - PySpark: A Definitive Guide",
+    "section": "",
+    "text": "Traditional namespace: schema.table Unity Catalog namespace: catalog.schema.table\n\nPyspark\nWhat are two main structures for storing data when performing manipulations? Resilient Distributed Data - RDD - Each record as independend object/row Dataframe - Records in columns\nWhat are the various functions? from pyspark.sql.functions import split\nwrite a simple pyspark snippet for word count “““import pyspark.sql.functions as F\nresults = ( spark.read.text(“./data/gutenberg_books/1342-0.txt”) .select(F.split(F.col(“value”), ” “).alias(”line”)) .select(F.explode(F.col(“line”)).alias(“word”)) .select(F.lower(F.col(“word”)).alias(“word”)) .select(F.regexp_extract(F.col(“word”), “[a-z’]*“, 0).alias(”word”)) .where(F.col(“word”) != ““) .groupby(”word”) .count() )”\nWhat are the rules for succsessful join?\nwhen to decide what type of UDF to use?"
+  },
+  {
+    "objectID": "data/pyspark.html#projects-extracted",
+    "href": "data/pyspark.html#projects-extracted",
+    "title": "Databricks - PySpark: A Definitive Guide",
+    "section": "",
+    "text": "Build a Medallion Architecture\nReference: Comparison of Ingestion Mechanisms\nImplement DLT Pipeline"
+  },
+  {
+    "objectID": "Book&PaperReview/ddia.html",
+    "href": "Book&PaperReview/ddia.html",
+    "title": "",
+    "section": "",
+    "text": "Designing Data-Intensive Applications Notes - 2nd Edition\nChapter 1. Trade-offs in Data Systems Architecture\n\nAn application data-intensive if data management is one of the primary challenges in developing the application\nAn compute-intensive systems the challenge is parallelizing some very large computation\nStandard building blocks of ddia 1. database 2. cache 3. stream processing 4.batch processing and 5. search indexes\n\n*Operational System &gt;Backend of the application, both read and write &gt;Point queries &gt;Create, Update, Delete Analytical Systems &gt; Read only copy of operational system for data analysis &gt; Bulk import (ETL) or event stream\nData lake - Raw data in files Data Warehouse - Structured data\nCloud Vs Selfhosting Cloud * Need to scale up/down\n\nSelfhosting\nPredicatable load\ncan add custom features\nservice availability in own hands\ncheap for large use\ndata secure\nSeperation of storage and compute is the craze In a traditional systems architecture, the same computer is responsible for both storage (disk) and computation (CPU and RAM). In cloud-native systems, they are indeed seperated\nMultitenant - no seperate machines for each customer, compute but rather better hardware utilization, easier scalability, and easier management by the cloud provider.\n\nWhy distributed systems over single node? * Fault tolerance/High Availabilty * Scalibility * Latency * Elasticity * Using specialized hardware\nDownside: Troubelshooting is often difficult and developed under observability observability is collecting data about the execution of a system, and allowing it to be queried in ways that allows both high-level metrics and individual events to be analyzed\nMicroservice - small seperate unit and Serverless, or function-as-a-service (FaaS) - autoallocates and frees resources, built based on time used\nChapter 2. Defining Nonfunctional Requirements\n\nPerformance &gt;Response - Time taken to serve a request - “time it takes to load the home timeline” or the “time until a post is delivered to followers” &gt;Throughput - How many requests served - “posts per second” and “timeline writes per second”. To avoid retry tsunami, implement exponential backoff with jitters and add circuit breaker or token bucket algorithm.\n\nResponse time = 2Network latency(to and fro) + 2queuing delay(in and out) + service time Average, Median, and Percentiles are the common measures Keeping Tail latencies happy is also important Tail latency amplification - the chance of getting a slow call increases if an end-user request requires multiple backend calls, and so a higher proportion of end-user requests end up being slow\n\nReliability and Fault tolerance If it continues providing the required service to the user in spite of certain faults occurring Faults come from hardware/software/humans.\nScalability Shared-Memory- Vertical scaling Shared-Disk - Mid of up and down options. Storage shared , compute seperate Shared-Nothing Architecture - Horizonatal scaling A good general principle for scalability is to break a system down into smaller components that can operate largely independently from each other. Another good principle is not to make things more complicated than necessary\nMaintainability\nEasy to operate. Self healing\nSimple to understand via design patterns and domain-driven design\nCan easily evolve using agile via TDD, refactoring and writing lots of tests\n\nChapter 3. Data Models and Query Languages Declarative - specify the pattern of the data you want—what conditions the results must meet, and how you want the data to be transformed (e.g., sorted, grouped, and aggregated)—but not how to achieve that goal. The database system’s query optimizer can decide which indexes and which join algorithms to use, and in which order to execute various parts of the query. Declarative saves headache how to implement parallelism and db takes care underneath\n\nObject-relational mapping (ORM) Helps in &gt; Translation between persistent relational and the in-memory object representation &gt; Caching results of database queries &gt; Can help schema management and migrations\n\nRelational Cost high for combining and displaying a profile Document databases can store both normalized and denormalized data, but they are often associated with denormalization—partly because the JSON data model makes it easy to store additional, denormalized fields, and partly because the weak support for joins in many document databases makes normalization inconvenient\nFact tables are individial events, enriched with dimension tables OLTP systems go with Normalization. Analytics systems often fare better with denormalized data. Structure of tables in a data warehouse: a star schema (fact in middle, surrounded by dimensions), snowflake schema(dimensions are further broken to subdimension), and one big table(no normalisation)\nWhen to use which model? document data model are schema flexibility but traversing second or more level is difficult relational model counters by providing better support for joins, many-to-one, and many-to-many relationships.\nA graph consists of two kinds of objects: vertices (also known as nodes or entities) and edges. Adjaceny list, each verted stores ids of neighbors one way. Good for traversal, In Adjaceny matrix , row and column correspond on\nIn the adjacency list model, each vertex stores the IDs of its neighbor vertices that are one edge away. Alternatively, you can use an adjacency matrix, a two-dimensional array where each row and each column corresponds to a vertex, where the value is zero when there is no edge between the row vertex and the column vertex, and where the value is one if there is an edge. The adjacency list is good for graph traversals, and the matrix is good for machine learning\nProperty Graphs: A property graph is made of vertices and edges, each with unique IDs, labels, and key–value properties. Vertices hold incoming/outgoing edges, while edges connect vertices and describe their relationships.\nCypher Query Language - Neo4j Graph Language Graph Queries in SQL - like AGE- pg graph db Triple-Stores and SPARQL - all information is stored in the form of very simple three-part statements: (subject, predicate, object) Datalog - consists of facts, and each fact corresponds to a row in a relational table. answers arrived recursively.\nEvent Sourcing and CQRS = Using a log of immutable events as source of truth and deriving materialized views from it.\nDataFrames= Similar to realtional table, manipulated via seris of commands Matrices = 2-d numbers, easier for linear algebra ops, rem adjaceny matrix above eg: used in the financial industry for representing time series data, such as the prices of assets and trades over time Arrays = large multidimensional array usess : geospatial measurements (raster data on a regularly spaced grid), medical imaging, or observations from astronomical telescopes\nChapter 4. Storage and Retrieval\nOLTP system typically accessed with primary key or a secondary index. OLTP takes log-structured storage engines for high throughput. B-trees tend to be better for reads, providing higher read throughput. Data warehouses use column oriented\nFinally, vector databases are used for semantic search on text documents and other media; they use vectors with a larger number of dimensions and find similar documents by comparing vector similarity.\nEmbedding models use much larger vectors. earch engines use distance functions such as cosine similarity or Euclidean distance to measure the distance between vectors. Cosine similarity measures the cosine of the angle of two vectors to determine how close they are"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
   },
   {
     "objectID": "observability/netflix_cluster_logs.html",
@@ -63,10 +161,38 @@
     "text": "The system currently runs hourly, providing near-real-time insights into potential issues.\n\nThe next step for the team is to reduce alerting latency to improve detection and response speed even further.\n\n\nSource: Netflix Games Talk — SREcon25 Americas"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "Craftmanship/linear_culture.html",
+    "href": "Craftmanship/linear_culture.html",
+    "title": "",
     "section": "",
-    "text": "About this site"
+    "text": "Linear Culutre Big Tech experience builds credibility, skills, and makes fundraising easier for founders.\nLinear’s idea formed from two insights: ICs dislike manager-oriented tools, and product teams lack a consistent methodology.\nCompany mission: help teams build better software; start with IC-friendly issue tracking and grow to compete with enterprise tools.\nEarly team composition: two engineers and one designer with complementary strengths.\nFirst hires came from the founders’ network; contractors were converted to full-time after proving fit.\nHire people who can later lead functions (e.g., customer success lead hired early to handle support load).\nLinear stayed full-remote from day one; focus and minimal meetings are key benefits.\nRemote made hiring juniors harder, so they hired seniors who need little mentoring.\nWork is organized by time zones to reduce daily cross-timezone collaboration.\nIn-person gatherings happen ~twice a year to align on long-term vision.\nTech stack is intentionally “normal”: TypeScript, React, Node, Postgres, Redis (queues), MongoDB (caching), GraphQL, on GCP with Kubernetes.\nA proprietary sync engine handles replication, offline mode, networking, and errors so feature work doesn’t depend on backend changes.\nChoosing a mainstream stack lets any engineer solo build most features end-to-end.\nLinear invests in infrastructure early (e.g., Kubernetes, sync engine) to stay small and move fast later.\nCulture empowers engineers to choose much of their work; a few major projects plus self-selected smaller tasks.\nLinear Method highlights: set direction with a roadmap and milestones; write simple tasks (not user stories); build with users; publish a changelog.\nThey break their own method when it isn’t the right fit for a situation.\nHiring philosophy: “hire less, but hire the best”; very high bar and slow growth.\nInterview process: practical coding and architecture interviews (no algorithms), followed by a paid week-long work trial on a real, greenfield task.\nHiring slowly contributed to early profitability, despite available funds.\nBig Tech learning: large codebases make architectural change expensive; continually improve architecture and compartmentalization early.\nBig Tech learning unlearned: heavy reliance on A/B testing; for tools like Linear, intuition and customer research matter more than analytics.\nHypergrowth pitfalls observed at Uber: rapid headcount growth, brittle first-gen systems, years-long migrations, and most engineers ending up on infrastructure.\nLinear aims to keep software engineering a product problem so engineers focus on customer value, not just infrastructure.\nFounders advise leveraging Big Tech pedigree when starting a company and building an online audience to kick-start adoption.\nSource: https://newsletter.pragmaticengineer.com/p/linear"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "DataGan",
+    "section": "",
+    "text": "All things Data!"
+  },
+  {
+    "objectID": "observability/index.html",
+    "href": "observability/index.html",
+    "title": "Observability",
+    "section": "",
+    "text": "Welcome — this section contains monitoring dashboards and observability docs.\n\n\n\nLog Clustering\n\n\n\n\n\nDashboard 1"
+  },
+  {
+    "objectID": "observability/index.html#techniques",
+    "href": "observability/index.html#techniques",
+    "title": "Observability",
+    "section": "",
+    "text": "Log Clustering"
+  },
+  {
+    "objectID": "observability/index.html#dashboards",
+    "href": "observability/index.html#dashboards",
+    "title": "Observability",
+    "section": "",
+    "text": "Dashboard 1"
   }
 ]

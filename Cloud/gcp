@@ -1,0 +1,119 @@
+# GCP - A Definitive Guide
+What are the advantages of cloud? 
+1. Flexibility 
+2. Efficiency 
+3. Cost-effectiveness
+
+# What Are the Different Layers of Cloud
+
+Cloud computing is generally divided into three main layers. Each layer provides different levels of control, flexibility, and management for users and organizations.
+
+![Cloud Layers credit: O'reilly](cloud_types.png)
+
+
+# Understanding Google Cloud Compute Engine
+
+Compute Engine is a customizable compute service offered by Google Cloud. It provides virtual machines that function like traditional on-premises servers but with the flexibility and scalability of the cloud.
+
+## What Makes Compute Engine Special
+
+Compute Engine allows users to start and stop instances as needed. This feature provides full control over resource usage and makes it easy to scale infrastructure based on workload requirements. It is suitable for applications of any size, from small development environments to large enterprise systems.
+
+## Machine Types
+
+Compute Engine offers several types of virtual machines to suit different workloads
+
+**General Purpose**  
+Used for common and everyday computing tasks.
+
+**Memory Optimized**  
+Designed for data-heavy and in-memory applications.
+
+**Compute Optimized**  
+Ideal for high performance computing workloads.
+
+**Accelerator Optimized**  
+Best suited for machine learning and GPU intensive tasks.
+
+## Smart Scaling and Reliability
+
+Compute Engine supports auto scaling, allowing instances to automatically adjust based on demand. Predictive auto scaling can anticipate future workload needs and prepare resources in advance.  
+It also provides auto failover capabilities that ensure high availability by shifting workloads to another zone or region if a failure occurs.
+
+## Cost Optimization
+
+For batch or temporary workloads, preemptible instances are available. These are short lived and cost effective virtual machines that help reduce expenses for non critical processing tasks. They can be started, used for batch jobs, and then shut down to save cost.
+
+## Security with IAM
+
+Security in Compute Engine is managed through Identity and Access Management (IAM). Users with the correct permissions can create, manage, or replicate virtual machines and operating systems. This ensures that access is controlled and resources remain protected.
+
+## Summary
+
+Compute Engine provides  
+- Flexible and scalable compute resources  
+- Cost efficient options for temporary workloads  
+- High availability through auto failover  
+- Security and access control through IAM  
+
+Compute Engine enables users to build, scale, and manage applications in the cloud with efficiency and reliability.
+
+
+Why containers?
+share the OS kernel, start much faster, and use a fraction of the memory compared to booting an entire OS
+
+What is GKE?
+GKE is auto-pilot of k8s. Scales vertically and horitzontally based on consumption
+
+What is App Engine?
+Serverless compute option for low latency applications. Achieves fast response by integrating to memory store in Redis
+
+What is Cloud Function?
+Cloud Functions is a fully managed event-driven serverless function-as-a-service (FaaS).
+Equivalent of lambda in AWS.
+
+What are different kind of storage?
+Object store
+Block 
+File Store
+
+What are they?
+Object store is used for binary and object data, blobs, and unstructured data
+Block storage is used for database block storage. Local SSD is the popular option 
+File storage is NAS equivlanet of a shared filesystem 
+
+What are the different storage classes?
+* Standard --> Regional
+* Nearline
+* Coldline
+* Archive
+
+
+What are different types of managed DBs?
+* Cloud SQL(Runs pg, mysql)
+* Cloud Spanner(combines Relational and Non Relational) with unlimited scale. Can configure for strong reads and stale reads
+* Firestore - Document model database,serverless
+* Bigtable - Petabyte NODQL database for low latency
+* Memory store - Fully managed inmemory store
+
+
+What are components in data analytics pipeline?
+* Capture --> Pub/Sub, BigQuery
+* Process --> Dataproc,Dataprep,Dataflow
+* Store --> Cloud Storage, Big Query, 
+* Analyse/Use --> TensorFlow, Vertex,DataStudio, Looker
+* Across --> Data Fusion, Data Catalog, Composer, Datastream
+
+What are the components in Data Science, Machine Learning, and Artificial Intelligence?
+* Prepackaged AI Solutions(Recommendation, Document, Contact Centre, DialogFlow)
+* PreTrained APIs (Vision, Translation, Video Intelligence)
+* AutoML Vertex AI
+* Vertex Training
+
+
+what is the architecture of vertex forecasting?
+* Prepare dataset
+* Train with models
+* Forecast
+* Visualise, Integrate
+

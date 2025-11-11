@@ -13,5 +13,17 @@
   },
   "observability/netflix_cluster_logs.qmd": {
     "netflix_cluster_logs.html": "8f6e784e"
+  },
+  "data/pyspark.qmd": {
+    "pyspark.html": "e7f079a7"
+  },
+  "Craftmanship/linear_culture.qmd": {
+    "linear_culture.html": "18ccf8c9"
+  },
+  "Book&PaperReview/ddia.qmd": {
+    "ddia.html": "fb30b6e1"
+  },
+  "system thinking/quick_patterns.qmd": {
+    "quick_patterns.html": "41c564dc"
   }
 }

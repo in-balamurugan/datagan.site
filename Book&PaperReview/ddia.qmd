@@ -1,0 +1,129 @@
+Designing Data-Intensive Applications Notes - 2nd Edition
+
+Chapter 1. Trade-offs in Data Systems Architecture
+
+* An application data-intensive if data management is one of the primary challenges in developing the application
+* An compute-intensive systems the challenge is parallelizing some very large computation
+* Standard building blocks of ddia 1. database 2. cache 3. stream processing 4.batch processing and 5. search indexes
+
+
+*Operational System 
+>Backend of the application, both read and write
+>Point queries
+>Create, Update, Delete
+Analytical Systems 
+> Read only copy of operational system for data analysis
+> Bulk import (ETL) or event stream
+
+Data lake - Raw data in files
+Data Warehouse - Structured data
+
+Cloud Vs Selfhosting
+Cloud 
+* Need to scale up/down
+
+* Selfhosting 
+* Predicatable load
+* can add custom features
+* service availability in own hands
+* cheap for large use
+* data secure
+
+* Seperation of storage and compute is the craze
+In a traditional systems architecture, the same computer is responsible for both storage (disk) and computation (CPU and RAM). In cloud-native systems, they are indeed seperated
+
+* Multitenant - no seperate machines for each customer, compute but rather better hardware utilization, easier scalability, and easier management by the cloud provider. 
+
+Why distributed systems over single node?
+* Fault tolerance/High Availabilty
+* Scalibility
+* Latency
+* Elasticity
+* Using specialized hardware
+
+Downside:
+Troubelshooting is often difficult and developed under observability
+observability is collecting data about the execution of a system, and allowing it to be queried in ways that allows both high-level metrics and individual events to be analyzed
+
+Microservice - small seperate unit and 
+Serverless, or function-as-a-service (FaaS) - autoallocates and frees resources, built based on time used
+
+Chapter 2. Defining Nonfunctional Requirements
+
+* Performance
+>Response - Time taken to serve a request -  “time it takes to load the home timeline” or the “time until a post is delivered to followers” 
+>Throughput - How many requests served - “posts per second” and “timeline writes per second”. To avoid retry tsunami, implement exponential backoff with jitters and add circuit breaker or token bucket algorithm. 
+
+Response time = 2*Network latency(to and fro) + 2*queuing delay(in and out) + service time 
+Average, Median, and Percentiles are the common measures
+Keeping Tail latencies happy is also important
+Tail latency amplification - the chance of getting a slow call increases if an end-user request requires multiple backend calls, and so a higher proportion of end-user requests end up being slow  
+
+* Reliability and Fault tolerance
+If it continues providing the required service to the user in spite of certain faults occurring
+Faults come from hardware/software/humans.  
+
+* Scalability
+Shared-Memory- Vertical scaling
+Shared-Disk - Mid of up and down options. Storage shared , compute seperate
+Shared-Nothing Architecture - Horizonatal scaling
+A good general principle for scalability is to break a system down into smaller components that can operate largely independently from each other. Another good principle is not to make things more complicated than necessary
+
+
+* Maintainability
+* Easy to operate. Self healing
+* Simple to understand via design patterns and domain-driven design
+* Can easily evolve using agile via TDD, refactoring and writing lots of tests
+
+Chapter 3. Data Models and Query Languages
+Declarative - specify the pattern of the data you want—what conditions the results must meet, and how you want the data to be transformed (e.g., sorted, grouped, and aggregated)—but not how to achieve that goal. The database system’s query optimizer can decide which indexes and which join algorithms to use, and in which order to execute various parts of the query.
+Declarative saves headache how to implement parallelism and db takes care underneath
+
+* Object-relational mapping (ORM)
+Helps in 
+> Translation between persistent relational and the in-memory object representation
+> Caching results of database queries
+> Can help schema management and migrations
+
+Relational Cost high for combining and displaying a profile
+Document databases can store both normalized and denormalized data, but they are often associated with denormalization—partly because the JSON data model makes it easy to store additional, denormalized fields, and partly because the weak support for joins in many document databases makes normalization inconvenient
+
+Fact tables are individial events, enriched with dimension tables
+OLTP systems go with Normalization. Analytics systems often fare better with denormalized data.
+Structure of tables in a data warehouse: a star schema (fact in middle, surrounded by dimensions), 
+snowflake schema(dimensions are further broken to subdimension), and one big table(no normalisation)
+
+When to use which model?
+document data model are schema flexibility but traversing second or more level is difficult
+relational model counters by providing better support for joins, many-to-one, and many-to-many relationships.
+
+A graph consists of two kinds of objects: vertices (also known as nodes or entities) and edges.
+Adjaceny list, each verted stores ids of neighbors one way. Good for traversal, In Adjaceny matrix , row and column correspond on 
+
+In the adjacency list model, each vertex stores the IDs of its neighbor vertices that are one edge away. Alternatively, you can use an adjacency matrix, a two-dimensional array where each row and each column corresponds to a vertex, where the value is zero when there is no edge between the row vertex and the column vertex, and where the value is one if there is an edge. The adjacency list is good for graph traversals, and the matrix is good for machine learning
+
+Property Graphs:
+A property graph is made of vertices and edges, each with unique IDs, labels, and key–value properties. Vertices hold incoming/outgoing edges, while edges connect vertices and describe their relationships.
+
+
+Cypher Query Language - Neo4j Graph Language
+Graph Queries in SQL - like AGE- pg graph db
+Triple-Stores and SPARQL - all information is stored in the form of very simple three-part statements: (subject, predicate, object)
+Datalog - consists of facts, and each fact corresponds to a row in a relational table. answers arrived recursively.
+
+Event Sourcing and CQRS = Using a log of immutable events as source of truth and deriving materialized views from it.
+
+DataFrames= Similar to realtional table, manipulated via seris of commands
+Matrices = 2-d numbers, easier for linear algebra ops, rem adjaceny matrix above eg:  used in the financial industry for representing time series data, such as the prices of assets and trades over time
+ Arrays = large multidimensional array usess : geospatial measurements (raster data on a regularly spaced grid), medical imaging, or observations from astronomical telescopes
+
+Chapter 4. Storage and Retrieval
+
+OLTP system typically accessed with primary key or a secondary index. OLTP takes log-structured storage engines for high throughput. B-trees tend to be better for reads, providing higher read throughput. 
+Data warehouses use column oriented 
+
+Finally, vector databases are used for semantic search on text documents and other media; they use vectors with a larger number of dimensions and find similar documents by comparing vector similarity.
+
+Embedding models use much larger vectors. earch engines use distance functions such as cosine similarity or Euclidean distance to measure the distance between vectors. Cosine similarity measures the cosine of the angle of two vectors to determine how close they are
+
+

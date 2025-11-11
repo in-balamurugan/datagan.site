@@ -1,0 +1,52 @@
+Linear Culutre
+Big Tech experience builds credibility, skills, and makes fundraising easier for founders.
+
+Linear’s idea formed from two insights: ICs dislike manager-oriented tools, and product teams lack a consistent methodology.
+
+Company mission: help teams build better software; start with IC-friendly issue tracking and grow to compete with enterprise tools.
+
+Early team composition: two engineers and one designer with complementary strengths.
+
+First hires came from the founders’ network; contractors were converted to full-time after proving fit.
+
+Hire people who can later lead functions (e.g., customer success lead hired early to handle support load).
+
+Linear stayed full-remote from day one; focus and minimal meetings are key benefits.
+
+Remote made hiring juniors harder, so they hired seniors who need little mentoring.
+
+Work is organized by time zones to reduce daily cross-timezone collaboration.
+
+In-person gatherings happen ~twice a year to align on long-term vision.
+
+Tech stack is intentionally “normal”: TypeScript, React, Node, Postgres, Redis (queues), MongoDB (caching), GraphQL, on GCP with Kubernetes.
+
+A proprietary sync engine handles replication, offline mode, networking, and errors so feature work doesn’t depend on backend changes.
+
+Choosing a mainstream stack lets any engineer solo build most features end-to-end.
+
+Linear invests in infrastructure early (e.g., Kubernetes, sync engine) to stay small and move fast later.
+
+Culture empowers engineers to choose much of their work; a few major projects plus self-selected smaller tasks.
+
+Linear Method highlights: set direction with a roadmap and milestones; write simple tasks (not user stories); build with users; publish a changelog.
+
+They break their own method when it isn’t the right fit for a situation.
+
+Hiring philosophy: “hire less, but hire the best”; very high bar and slow growth.
+
+Interview process: practical coding and architecture interviews (no algorithms), followed by a paid week-long work trial on a real, greenfield task.
+
+Hiring slowly contributed to early profitability, despite available funds.
+
+Big Tech learning: large codebases make architectural change expensive; continually improve architecture and compartmentalization early.
+
+Big Tech learning unlearned: heavy reliance on A/B testing; for tools like Linear, intuition and customer research matter more than analytics.
+
+Hypergrowth pitfalls observed at Uber: rapid headcount growth, brittle first-gen systems, years-long migrations, and most engineers ending up on infrastructure.
+
+Linear aims to keep software engineering a product problem so engineers focus on customer value, not just infrastructure.
+
+Founders advise leveraging Big Tech pedigree when starting a company and building an online audience to kick-start adoption.
+
+Source: https://newsletter.pragmaticengineer.com/p/linear
